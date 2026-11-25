@@ -17,8 +17,12 @@ if (ENTRY.length > 200) {
   console.error("entry is " + ENTRY.length + " characters, over the 200 limit");
   process.exit(1);
 }
-if (ENTRY.indexOf("\n") !== -1 || ENTRY.indexOf("\r") !== -1) {
-  console.error("entry must be a single line");
+if (/[\x00-\x1F\x7F]/.test(ENTRY)) {
+  console.error("entry must not contain control characters");
+  process.exit(1);
+}
+if (ENTRY !== ENTRY.trim()) {
+  console.error("entry must not have leading or trailing whitespace");
   process.exit(1);
 }
 
