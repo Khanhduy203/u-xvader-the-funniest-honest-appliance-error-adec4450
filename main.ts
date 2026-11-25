@@ -27,5 +27,6 @@ if (ENTRY !== ENTRY.trim()) {
 }
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR || __dirname;
+fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, "entry.txt"), ENTRY);
 console.log("wrote entry.txt (" + ENTRY.length + " chars)");
